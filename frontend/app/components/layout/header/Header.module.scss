@@ -1,0 +1,12 @@
+@import "../../../variables.scss";
+
+.header {
+    background-color: $main_400;
+    padding: 20px $desktop-side-padding;
+
+    .btnLogin {
+        margin-left: auto;
+        display: block;
+    }
+}
+
