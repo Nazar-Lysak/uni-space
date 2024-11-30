@@ -1,13 +1,14 @@
-import { Button } from "@/components/ui/button";
+
 import style from "./Header.module.scss";
+import LoginButton from '@/app/features/login-button/LoginButton';
 
 export default function Header() {
   return (
     <header className={style.header}>
-      <Button className={style.btnLogin}>
-        Log in
-      </Button>
+      <div>
+        nav
+      </div>
+      <LoginButton />
     </header>
-
   );
 }
