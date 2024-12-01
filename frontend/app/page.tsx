@@ -1,10 +1,12 @@
 import { DatePicker } from 'antd';
+import React from 'react';
 
-export default function Home() {
+const Home: React.FC = () => {
   return (
     <div>
       <DatePicker />
     </div>
-
   );
 }
+
+export default Home;

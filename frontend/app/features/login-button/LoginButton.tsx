@@ -1,20 +1,21 @@
-"use client"
+"use client";
 
-import { Button } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { Button } from "antd";
+import { UserOutlined } from "@ant-design/icons";
+import { useLoginPopupStore } from "@/app/store/store";
 
-import style from './LoginButton.module.scss';
+import style from "./LoginButton.module.scss";
 
-export default function LoginButton() {
-    const handleLogin = () => {
-        console.log('click login button')
-    }
+const LoginButton: React.FC = () => {
+  const openPopup = useLoginPopupStore(state => state.openPopup);
 
   return (
     <Button
-        className={style.btnLogin}
-        icon={<UserOutlined />}
-        onClick={handleLogin}
+      className={style.btnLogin}
+      icon={<UserOutlined />}
+      onClick={openPopup}
     />
   );
-}
+};
+
+export default LoginButton;

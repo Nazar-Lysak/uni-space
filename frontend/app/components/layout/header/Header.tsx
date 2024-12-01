@@ -2,7 +2,7 @@
 import style from "./Header.module.scss";
 import LoginButton from '@/app/features/login-button/LoginButton';
 
-export default function Header() {
+const Header: React.FC = () => {
   return (
     <header className={style.header}>
       <div>
@@ -12,3 +12,5 @@ export default function Header() {
     </header>
   );
 }
+
+export default Header;
