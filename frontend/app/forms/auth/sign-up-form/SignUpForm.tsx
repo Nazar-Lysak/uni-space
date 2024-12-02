@@ -1,5 +1,7 @@
-import type { FormProps } from 'antd';
-import { Button, Select, Form, Input, Typography } from 'antd';
+import { useEffect } from 'react';
+import { Button, Select, Form, Input, Typography, FormProps } from 'antd';
+import { useMarketList } from '../../../store/store';
+import Loader from '@/app/ui/loader/Loader';
 
 const { Title } = Typography;
 
@@ -7,6 +9,7 @@ type FieldType = {
   email?: string;
   password?: string;
   confirmPassword?: string;
+  market?: string;
   username?: string;
 };
 
@@ -23,6 +26,13 @@ const handleSelect = (value: string) => {
 };
 
 const SignUpForm: React.FC = () => {
+
+  const { marketList, isLoading, error, fetchMarkets } = useMarketList();
+
+  useEffect(() => {
+    fetchMarkets(); 
+  }, [marketList]);
+
   return (
     <Form
       name="basic"
@@ -76,23 +86,27 @@ const SignUpForm: React.FC = () => {
       <Form.Item<FieldType>
         label="Username"
         name="username"
-        rules={[{ message: 'Please input your username!' }]}
+        rules={[{ required: true, message: 'Please input your username!' }]}
       >
         <Input />
       </Form.Item>
-
-      <Select
-        defaultValue="UK"
-        onChange={handleSelect}
-        options={[
-          { value: 'UK', label: 'uk' },
-          { value: 'ES', label: 'es' },
-          { value: 'PT', label: 'pt' },
-        ]}
-        rules={[
-          { required: true },
-        ]}
-      />
+      <Form.Item<FieldType>
+        name="market" 
+        label="Select Market"  
+        rules={[{ required: true, message: 'Please select a market!' }]}
+      >
+        {
+          isLoading 
+          ? <Loader />
+          : (
+            <Select
+              onChange={handleSelect}
+              options={marketList}
+            />
+          ) 
+        }
+        
+      </Form.Item>      
 
       <Form.Item label={null}>
         <Button
