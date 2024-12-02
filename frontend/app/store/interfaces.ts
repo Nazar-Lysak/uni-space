@@ -3,3 +3,10 @@ export interface LoginPopupState {
     openPopup: () => void;
     closePopup: () => void;
 }
+
+export interface FetchMarketState {
+    marketList: any[]; 
+    isLoading: boolean;
+    error: string | null;
+    fetchMarkets: () => Promise<void>;
+  }

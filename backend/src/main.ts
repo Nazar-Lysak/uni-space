@@ -3,6 +3,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as dotenv from 'dotenv';
 
 import { AppModule } from './app.module';
+import { corsConfig } from 'cors.config';
 
 dotenv.config();
 
@@ -18,6 +19,8 @@ async function bootstrap() {
 const documentFactory = () => SwaggerModule.createDocument(app, config);
 SwaggerModule.setup('docs', app, documentFactory);
 
-  await app.listen(process.env.SERVER_PORT ?? 3000);
+app.enableCors(corsConfig);
+
+  await app.listen(process.env.SERVER_PORT ?? 3001);
 }
 bootstrap();
