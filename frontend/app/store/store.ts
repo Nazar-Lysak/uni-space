@@ -1,7 +1,19 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { FetchMarketState, LoginPopupState } from './interfaces';
+import { FetchMarketState, LanguageState, LoginPopupState } from './interfaces';
 import { fetchMarketList } from './utils/marketListApi';
+
+export const useLanguage = create<LanguageState>()(
+  persist(
+    (set) => ({
+      language: 'en',
+      setLanguage: (language: string) => set({ language }),
+    }),
+    {
+      name: 'language-storage',
+    }
+  )
+);
 
 export const useLoginPopupStore = create<LoginPopupState>()(
   persist(

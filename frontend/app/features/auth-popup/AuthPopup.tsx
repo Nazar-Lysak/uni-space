@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from 'next-intl';
+
 import { Modal, Button, Flex } from 'antd';
 
 import SignInForm from "@/app/forms/auth/sign-in-form/SignInForm";
@@ -13,6 +15,7 @@ const AuthPopup: React.FC = () => {
 
   const { isOpen, closePopup } = useLoginPopupStore((state) => state);
   const [currentForm, setCurrentForm] = useState<"signIn" | "signUp" | "forgotPassword">("signIn");
+  const t = useTranslations("translations");
 
   const formComponents: Record<string, React.ReactNode> = {
     signIn: <SignInForm />,
@@ -35,19 +38,19 @@ const AuthPopup: React.FC = () => {
           type={currentForm === "signIn" ? "link" : "text"}
           onClick={() => setCurrentForm("signIn")}
         >
-          Sign In
+          { t("userAccess.auth.signIn") }
         </Button>
         <Button
           type={currentForm === "signUp" ? "link" : "text"}
           onClick={() => setCurrentForm("signUp")}
         >
-          Sign Up
+          { t("userAccess.auth.register") }
         </Button>
         <Button
           type={currentForm === "forgotPassword" ? "link" : "text"}
           onClick={() => setCurrentForm("forgotPassword")}
         >
-          Forgot Password
+          { t("userAccess.auth.forgotPassword") }
         </Button>
       </Flex>
     </Modal>

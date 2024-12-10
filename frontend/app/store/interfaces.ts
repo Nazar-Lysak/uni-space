@@ -9,4 +9,9 @@ export interface FetchMarketState {
     isLoading: boolean;
     error: string | null;
     fetchMarkets: () => Promise<void>;
-  }
+}
+
+export interface LanguageState {
+    language: string;
+    setLanguage: (language: string) => void;
+}

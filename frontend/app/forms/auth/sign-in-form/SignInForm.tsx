@@ -1,3 +1,5 @@
+import { useTranslations } from 'next-intl';
+
 import type { FormProps } from 'antd';
 import { Button, Checkbox, Form, Input, Typography } from 'antd';
 
@@ -19,6 +21,8 @@ const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
 
 const SignInForm: React.FC = () => {
 
+  const t = useTranslations("translations");
+
   return (
     <Form
       name="basic"
@@ -28,28 +32,28 @@ const SignInForm: React.FC = () => {
       autoComplete="off"
       preserve={false}
     >
-    <Title level={3}>Sign In</Title>
+    <Title level={3}>{ t("userAccess.auth.signIn") }</Title>
       <Form.Item<FieldType>
-          label="Email"
+          label={t("labels.email")}
           name="email"
           rules={[
-            { required: true, message: 'Please input your email!' },
-            { type: 'email', message: 'Please enter a valid email address!' },
+            { required: true, message: t("userAccess.messages.enterEmail") },
+            { type: 'email', message: t("userAccess.errors.invalidEmail") },
           ]}
         >
         <Input />
       </Form.Item>
 
     <Form.Item<FieldType>
-      label="Password"
+      label={t("labels.password")}
       name="password"
-      rules={[{ required: true, message: 'Please input your password!' }]}
+      rules={[{ required: true, message: t("userAccess.messages.enterPassword") }]}
     >
       <Input.Password />
     </Form.Item>
 
     <Form.Item<FieldType> name="remember" valuePropName="checked" label={null}>
-      <Checkbox>Remember me</Checkbox>
+      <Checkbox>{t("labels.rememberMe")}</Checkbox>
     </Form.Item>
 
     <Form.Item label={null}>
@@ -58,7 +62,7 @@ const SignInForm: React.FC = () => {
         htmlType="submit"
         style={{display: 'block', marginLeft: 'auto'}}
       >
-        Submit
+        { t("userAccess.auth.signIn") }
       </Button>
     </Form.Item>
   </Form>

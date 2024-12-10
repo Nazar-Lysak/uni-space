@@ -1,3 +1,5 @@
+import { useTranslations } from 'next-intl';
+
 import { useEffect } from 'react';
 import { Button, Select, Form, Input, Typography, FormProps } from 'antd';
 import { useMarketList } from '../../../store/store';
@@ -29,6 +31,8 @@ const SignUpForm: React.FC = () => {
 
   const { marketList, isLoading, error, fetchMarkets } = useMarketList();
 
+  const t = useTranslations("translations");
+
   useEffect(() => {
     fetchMarkets(); 
   }, [marketList]);
@@ -42,40 +46,40 @@ const SignUpForm: React.FC = () => {
       autoComplete="off"
       preserve={false}
     >
-      <Title level={3}>Sign Up</Title>
+      <Title level={3}>{ t("userAccess.auth.register") }</Title>
       <Form.Item<FieldType>
-        label="Email"
+        label={t("labels.email")}
         name="email"
         rules={[
-          { required: true, message: 'Please input your email!' },
-          { type: 'email', message: 'Please enter a valid email address!' },
+          { required: true, message: t("userAccess.messages.enterEmail") },
+          { type: 'email', message: t("userAccess.errors.invalidEmail") },
         ]}
       >
         <Input />
       </Form.Item>
 
       <Form.Item<FieldType>
-        label="Password"
+        label={t("labels.password")}
         name="password"
         rules={[
-          { required: true, message: 'Please input your password!' },
-          { min: 6, message: 'Password must be at least 6 characters!' },
+          { required: true, message: t("userAccess.messages.enterPassword") },
+          { min: 6, message: t("userAccess.errors.invalidPassword") },
         ]}
       >
         <Input.Password />
       </Form.Item>
       <Form.Item<FieldType>
-        label="Confirm Password"
+        label={t("labels.confirmPassword")}
         name="confirmPassword"
         dependencies={['password']}
         rules={[
-          { required: true, message: 'Please confirm your password!' },
+          { required: true, message: t("userAccess.errors.confirmPassword") },
           ({ getFieldValue }) => ({
             validator(_, value) {
               if (!value || getFieldValue('password') === value) {
                 return Promise.resolve();
               }
-              return Promise.reject(new Error('Passwords do not match!'));
+              return Promise.reject(new Error(t("userAccess.errors.missmatchPassords")));
             },
           }),
         ]}
@@ -84,16 +88,16 @@ const SignUpForm: React.FC = () => {
       </Form.Item>
 
       <Form.Item<FieldType>
-        label="Username"
+        label={t("labels.username")}
         name="username"
-        rules={[{ required: true, message: 'Please input your username!' }]}
+        rules={[{ required: true, message: t("userAccess.messages.enterUsername") }]}
       >
         <Input />
       </Form.Item>
       <Form.Item<FieldType>
         name="market" 
-        label="Select Market"  
-        rules={[{ required: true, message: 'Please select a market!' }]}
+        label={t("labels.selectMarket")} 
+        rules={[{ required: true, message: t("userAccess.messages.selectMarket") }]}
       >
         {
           isLoading 
@@ -114,7 +118,7 @@ const SignUpForm: React.FC = () => {
           htmlType="submit"
           style={{display: 'block', marginLeft: 'auto'}}
         >
-          Submit
+          { t("buttons.submit") }
         </Button>
       </Form.Item>
     </Form>
